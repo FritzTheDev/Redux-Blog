@@ -29,8 +29,8 @@ class PostsNew extends Component {
                 component={this.renderField}
                 />
                 <Field
-                label="Body"
-                name="body"
+                label="Content"
+                name="content"
                 component={this.renderField}
                 />
             </form>
@@ -38,6 +38,28 @@ class PostsNew extends Component {
     }
 }
 
+function validate(values) {
+    //if errors == {}, form is valid
+    const errors = {};
+    if (values.title.length < 3) {
+        errors.title = 'Title must be at least 3 characters.';
+    }
+
+    if (!values.title) {
+        errors.title = 'Enter a title!';
+    };
+
+    if (!values.categories) {
+        errors.categories = 'Enter some categories';
+    }
+
+    if (!values.content) {
+        errors.content = 'Add some content';
+    }
+    return errors;
+};
+
 export default reduxForm({
+    validate,
     form: 'PostsNewForm',
 })(PostsNew);
